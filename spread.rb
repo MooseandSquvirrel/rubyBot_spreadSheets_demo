@@ -117,6 +117,7 @@ def grabCSV()
     end
     puts "All BAND Numbers:"
     ap csvArray.array
+    csvArray.array = csvArray.array.uniq
     csvArray
 end
 

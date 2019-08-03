@@ -21,7 +21,7 @@ def b10_Driver(bandsLength, bandsArray, bandNumbsArray)
     # REFERENCE URL http://elementalselenium.com/tips/5-select-from-a-dropdown
     dropdown = $_browser.find_element(id: 'templateNo') #### Comma needed between id: and 'templateNo' ?
         select_list = Selenium::WebDriver::Support::Select.new(dropdown)
-        select_list.select_by(:value, '45')
+        select_list.select_by(:value, '59')
         puts "Dropdown option selected:"
         puts selected_option = select_list.selected_options[0].text
         sleep(2)
@@ -48,7 +48,6 @@ def b10_Driver(bandsLength, bandsArray, bandNumbsArray)
 
     puts "Good"
 
-    sleep(30)
 end
 
 def clickit()

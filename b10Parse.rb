@@ -12,6 +12,7 @@ end
 def parserB10(worksheet)
     index = 1
     counter = 0
+    b10ResultsBandsArray = []
     while counter < worksheet.sheet_data.rows.size - 1
         bandObj = ParseBandObj.new
         bandObj.band_num = worksheet.sheet_data[index][0].value 
@@ -27,23 +28,62 @@ def parserB10(worksheet)
         bandObj.existing_leader_bands = worksheet.sheet_data[index][15].value
         bandObj.existingGBL = worksheet.sheet_data[index][16].value
         bandObj.nru3 = worksheet.sheet_data[index][17].value
+        b10ResultsBandsArray << bandObj
         index += 1
         counter += 1
     end
+    puts "(parserB10)b10ResultsBandsArray:"
+    ap b10ResultsBandsArray
 end
 
 # **FINAL RESULT** NRUCOUNT STORING RESULTS INTO ORIGINAL EVENT OBJECTS' INSTANCE VARIABLES
-# def resultsB10(band, worksheet)
- 
-#     puts "==============================================================================================="
-#     puts "Results of first B10 (#{eventName}):"
-#     puts "-----------------------------------"
-#     puts "totalMemberCount: #{band.totalMemberCount}"
-#     puts "coachesCount: #{band.coachesCount}"
-#     puts "nruCount: #{band.nruCount}"
-#     puts "-----------------------------------"
-#     puts "==============================================================================================="
-# end
+def resultsB10(band, worksheet)
+    puts "==============================================================================================="
+    puts "Results of B10:"
+    puts "-----------------------------------"
+    bandObj = ParseBandObj.new
+    puts "bandObj.band_num = worksheet.sheet_data[index][0].value:" 
+    puts bandObj.band_num = worksheet.sheet_data[index][0].value 
+
+    puts "bandObj.total_members = worksheet.sheet_data[index][3].value:"
+    puts bandObj.total_members = worksheet.sheet_data[index][3].value
+
+    puts "bandObj.non_admins = worksheet.sheet_data[index][5].value:"
+    puts bandObj.non_admins = worksheet.sheet_data[index][5].value
+
+    puts "bandObj.nru1 = worksheet.sheet_data[index][6].value:"
+    puts bandObj.nru1 = worksheet.sheet_data[index][6].value
+
+    puts "bandObj.EXUs = worksheet.sheet_data[index][7].value:"
+    puts bandObj.EXUs = worksheet.sheet_data[index][7].value
+
+    puts "bandObj.new_leaders = worksheet.sheet_data[index][9].value:"
+    puts bandObj.new_leaders = worksheet.sheet_data[index][9].value
+
+    puts "bandObj.new_leader_bands = worksheet.sheet_data[index][10].value:"
+    puts bandObj.new_leader_bands = worksheet.sheet_data[index][10].value
+
+    puts" bandObj.GBLs = worksheet.sheet_data[index][11].value:"
+    puts bandObj.GBLs = worksheet.sheet_data[index][11].value
+
+    puts "bandObj.nru2 = worksheet.sheet_data[index][12].value:"
+    puts bandObj.nru2 = worksheet.sheet_data[index][12].value
+
+    puts "bandObj.existing_leaders = worksheet.sheet_data[index][14].value:"
+    puts bandObj.existing_leaders = worksheet.sheet_data[index][14].value
+
+    puts "bandObj.existing_leader_bands = worksheet.sheet_data[index][15].value:"
+    puts bandObj.existing_leader_bands = worksheet.sheet_data[index][15].value
+
+    puts "bandObj.existingGBL = worksheet.sheet_data[index][16].value:"
+    puts bandObj.existingGBL = worksheet.sheet_data[index][16].value
+
+    puts "bandObj.nru3 = worksheet.sheet_data[index][17].value:"
+    puts bandObj.nru3 = worksheet.sheet_data[index][17].value
+
+    puts "-----------------------------------"
+    puts "==============================================================================================="
+end
 
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 "                                              B7_1 Main Parser Function                                 "
@@ -51,7 +91,7 @@ end
 
 
 # bandsArraywDates PARAMETER IN ORDER TO STORE INSTANCE VARIABLES FOR RESULTS, eventNumsArray TO ACCESS BANDS.NUMS
-def b10Parse()
+def b10Parse(bandsArray)
     # MOVE TO TEMP_B10
     mvDirB10()
     # COLLECTS FILE(S) WITH .XLSX FORMAT (SHOULD ONLY BE ONE) IN ORDER TO PARSE IT
@@ -62,7 +102,15 @@ def b10Parse()
     # DEFINES WORKBOOK AS WORKSHEET (DONT DELETE)
     worksheet = workbookB7first[0]
     
-    parserB10(worksheet)
-    # resultsB10(band.eventName, band, worksheet)
+    parserB10(worksheet, bandsArray[i])
+    puts "sleeping for 15 seconds"
+    sleep(15)
+    len = bandsArray.length
+    i = 0
+    until i == len
+        band = bandsArray[i]
+        resultsB10(band, worksheet)
+        i += 1
+    end
 end
 

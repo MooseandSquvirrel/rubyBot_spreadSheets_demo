@@ -87,10 +87,13 @@ end
 
 def addToCsv(bandsArrayToCsv)
     i = 0
+    len = bandsArrayToCsv.length
     CSV.open("bandNums.csv", "a+") do |csv|
-        csv << ["#{bandsArrayToCsv[i].bandNum}"]
-        puts "bandsArrayToCsv[i].bandNum: #{bandsArrayToCsv[i].bandNum}"
-        i += 1
+        while i < len
+            csv << ["#{bandsArrayToCsv[i].bandNum}"]
+            puts "bandsArrayToCsv[i].bandNum: #{bandsArrayToCsv[i].bandNum}"
+            i += 1
+        end
     end
 end
 
@@ -198,15 +201,9 @@ def RUN
     end
 
 
-
-
-
-    return                                      ##### REMOVE RETURN WHEN ADDTOCSV WORKING
-
-
-
-
     "bandsArray from here and below should be collected from CSV"
+
+    return 
 
     go_b10_a2(bandsArray)
     removeTEMPB7()

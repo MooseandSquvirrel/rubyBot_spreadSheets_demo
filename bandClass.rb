@@ -10,7 +10,7 @@ class Band
         @bandNum = ""
         while band_num_check != 'y' || band_num_check != "exit"
             if counter == 0
-                puts @@stringsHash[:band_num]
+                puts @@stringsHash[:band_nums]
             end
             counter += 1
             band_num = gets.strip
@@ -76,8 +76,8 @@ class Band
     def loopOrGo()
         puts "\n"
         puts "----------------------------------------------------------------------------------"
-        puts "If no more BANDs with the date ** #{@startDate} ** to enter info for, type 'go' and hit 'Enter'."
-        puts "Otherwise, hit 'Enter' to begin submitting another Summer Camp BAND's info."
+        puts "If no more BANDs to enter info for, type 'go' and hit 'Enter'."
+        puts "Otherwise, hit 'Enter' to begin submitting another BAND number."
         gets.strip != "go"
     end
 end 

@@ -167,26 +167,31 @@ end
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 def RUN
-    fileMoveOldXlsx()
-    bannerOutPut("banner_Welcome.txt")
-    didYouLogin()
-    helloMessage()
-    usrNumber = textMessage()
-    userName()
-    pwd()    
+    #### fileMoveOldXlsx()
+    # bannerOutPut("banner_Welcome.txt") #### SUDDENLY STOPPED WORKING WITHOUT CODE CHANGING
+    #### didYouLogin()
+    #### helloMessage()
+    #### usrNumber = textMessage()
+    #### userName()
+    #### pwd()    
     eventTitleCounter = 0
     bandCounter = 0
-    bandsArrayToCsv = []
-    loop do 
-        eventTitleCounter += 1
-        event = Band.new
-        event.getBandNum()
-        if event.loopOrGo() == false
-            bandsArrayToCsv << event
-            break
-        else 
-            bandsArrayToCsv << event
+    puts "Would you like to add a Band Number to the program to track Data on?\n\nEnter 'y' for YES or 'n' for NO."
+    if ('y' == gets.strip)
+        bandsArrayToCsv = []
+        loop do 
+            eventTitleCounter += 1
+            event = Band.new
+            event.getBandNum()
+            if event.loopOrGo() == false
+                bandsArrayToCsv << event
+                break
+            else 
+                bandsArrayToCsv << event
+            end
         end
+    else
+        puts "Running data on current band numbers in program..."
     end
 
     puts "bandsArrayToCsv:"

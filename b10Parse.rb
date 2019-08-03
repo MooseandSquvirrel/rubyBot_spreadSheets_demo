@@ -37,49 +37,49 @@ def parserB10(worksheet)
 end
 
 # **FINAL RESULT** NRUCOUNT STORING RESULTS INTO ORIGINAL EVENT OBJECTS' INSTANCE VARIABLES
-def resultsB10(band, worksheet)
+def resultsB10(bandObj, worksheet)
     puts "==============================================================================================="
     puts "Results of B10:"
     puts "-----------------------------------"
-    bandObj = ParseBandObj.new
-    puts "bandObj.band_num = worksheet.sheet_data[index][0].value:" 
-    puts bandObj.band_num = worksheet.sheet_data[index][0].value 
+    
+    puts "bandObj.band_num :" 
+    puts bandObj.band_num  
 
-    puts "bandObj.total_members = worksheet.sheet_data[index][3].value:"
-    puts bandObj.total_members = worksheet.sheet_data[index][3].value
+    puts "bandObj.total_members :"
+    puts bandObj.total_members 
 
-    puts "bandObj.non_admins = worksheet.sheet_data[index][5].value:"
-    puts bandObj.non_admins = worksheet.sheet_data[index][5].value
+    puts "bandObj.non_admins :"
+    puts bandObj.non_admins 
 
-    puts "bandObj.nru1 = worksheet.sheet_data[index][6].value:"
-    puts bandObj.nru1 = worksheet.sheet_data[index][6].value
+    puts "bandObj.nru1 :"
+    puts bandObj.nru1 
 
-    puts "bandObj.EXUs = worksheet.sheet_data[index][7].value:"
-    puts bandObj.EXUs = worksheet.sheet_data[index][7].value
+    puts "bandObj.EXUs :"
+    puts bandObj.EXUs 
 
-    puts "bandObj.new_leaders = worksheet.sheet_data[index][9].value:"
-    puts bandObj.new_leaders = worksheet.sheet_data[index][9].value
+    puts "bandObj.new_leaders :"
+    puts bandObj.new_leaders 
 
-    puts "bandObj.new_leader_bands = worksheet.sheet_data[index][10].value:"
-    puts bandObj.new_leader_bands = worksheet.sheet_data[index][10].value
+    puts "bandObj.new_leader_bands :"
+    puts bandObj.new_leader_bands 
 
-    puts" bandObj.GBLs = worksheet.sheet_data[index][11].value:"
-    puts bandObj.GBLs = worksheet.sheet_data[index][11].value
+    puts" bandObj.GBLs :"
+    puts bandObj.GBLs 
 
-    puts "bandObj.nru2 = worksheet.sheet_data[index][12].value:"
-    puts bandObj.nru2 = worksheet.sheet_data[index][12].value
+    puts "bandObj.nru2 :"
+    puts bandObj.nru2 
 
-    puts "bandObj.existing_leaders = worksheet.sheet_data[index][14].value:"
-    puts bandObj.existing_leaders = worksheet.sheet_data[index][14].value
+    puts "bandObj.existing_leaders :"
+    puts bandObj.existing_leaders 
 
-    puts "bandObj.existing_leader_bands = worksheet.sheet_data[index][15].value:"
-    puts bandObj.existing_leader_bands = worksheet.sheet_data[index][15].value
+    puts "bandObj.existing_leader_bands :"
+    puts bandObj.existing_leader_bands 
 
-    puts "bandObj.existingGBL = worksheet.sheet_data[index][16].value:"
-    puts bandObj.existingGBL = worksheet.sheet_data[index][16].value
+    puts "bandObj.existingGBL :"
+    puts bandObj.existingGBL 
 
-    puts "bandObj.nru3 = worksheet.sheet_data[index][17].value:"
-    puts bandObj.nru3 = worksheet.sheet_data[index][17].value
+    puts "bandObj.nru3 :"
+    puts bandObj.nru3 
 
     puts "-----------------------------------"
     puts "==============================================================================================="
@@ -101,14 +101,18 @@ def b10Parse(bandsArray)
     workbookB7first = RubyXL::Parser.parse("#{fileNamesArray[0]}")
     # DEFINES WORKBOOK AS WORKSHEET (DONT DELETE)
     worksheet = workbookB7first[0]
-    
-    parserB10(worksheet, bandsArray[i])
+
+    b10ResultsBandsArray = []
+    b10ResultsBandsArray = parserB10(worksheet)
+
+    #### API Googlespreadsheets function to add b10Resultsarray with while loop to sheets
+
     puts "sleeping for 15 seconds"
     sleep(15)
     len = bandsArray.length
     i = 0
     until i == len
-        band = bandsArray[i]
+        band = b10ResultsBandsArray[i]
         resultsB10(band, worksheet)
         i += 1
     end

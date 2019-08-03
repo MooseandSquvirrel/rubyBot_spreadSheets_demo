@@ -70,7 +70,7 @@ end
 
 # FUNCTION RETURNS ARRAY OF EVENT NAMES FROM EACH EVENT
 def getBandNumsArray(bandsArray)
-    bandNumbsArray = bandsArray.collect {|x| x}         #" I NEED TO FIGURE OUT HOW TO COLLECT ALL THE BAND NUMBERS INTO AN ARRAY FROM THEIR OBJECTS"
+    bandsArray = bandsArray.collect {|x| x}         #" I NEED TO FIGURE OUT HOW TO COLLECT ALL THE BAND NUMBERS INTO AN ARRAY FROM THEIR OBJECTS"
 end
 
 # FUNCTION RETURNS NEW BANDS FROM EVENTS COLLECTS FROM B3 PARSE FOR B7_2 DOWNLOADING CHECK (IF CELL CONTAINS ANY BANDNUMS FROM THIS ARRAY)
@@ -111,8 +111,8 @@ def grabCSV()
             next
         else
             csvArray.array << row
-            puts "csvArray.array"
-            puts csvArray.array
+            # puts "csvArray.array"
+            # puts csvArray.array
         end
     end
     puts "All BAND Numbers:"
@@ -141,12 +141,12 @@ def go_b10_a2(bandsArray)
     puts "Working with this bandsArray:"
     ap bandsArray
     # bandsArray IS TOTAL BAND NUMBERS FROM CSV AFTER POTENTAIL APPENDING FROM USER, OR WITHOUT APPEND, 
-    bandNumbsArray = bandsArray.flatten
+    bandsArray = bandsArray.flatten
     puts "flattened"
-    ap bandNumbsArray
+    ap bandsArray
     puts "joined"
-    bandNumbsArray = bandNumbsArray.join(", ")
-    ap bandNumbsArray
+    bandsArray = bandsArray.join(", ")
+    ap bandsArray
 
     # COUNTER FOR LENGTH OF BANDS ARRAY FOR USE IN FUNCTIONS BELOW
     bandsLength = bandsArray.length   
@@ -156,12 +156,12 @@ def go_b10_a2(bandsArray)
     navigate($_userNameVar)                                                           
     sleep (7) 
 
-    b10_a2_Driver(bandsLength, bandsArray, bandNumbsArray)
+    b10_a2_Driver(bandsLength, bandsArray)
     storeTable($_browser)
-    checkTableDownload(bandsArray)
+    checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
     browserDownloadFiles($_files_href)
     grabXlsxB10()
-    b10Parse(eventNamesArray, bandsArray)
+    b10Parse(bandsArray)
     puts "\nB10 Parsed\n"
  
     grabXlsxA2()

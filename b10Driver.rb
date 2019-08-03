@@ -2,7 +2,7 @@
 "                                  Function Entering Bands for First B7                                  "
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
-def b10_Driver(bandsLength, bandsArray, bandNumbsArray)
+def b10_Driver(bandsLength, bandsArray)
   
     bandNameCounter = 0
 
@@ -36,7 +36,7 @@ def b10_Driver(bandsLength, bandsArray, bandNumbsArray)
         end
         element if element.displayed?
     }
-    $_form.send_keys("#{bandNumbsArray}\n")
+    $_form.send_keys("#{bandsArray}\n")
     sleep(2)
     puts "Good"
 end

@@ -1,6 +1,6 @@
 def b10_a2_Driver(bandsLength, bandsArray, initialCellTimeStampArray)
-        "-------------------- b7_1Driver -----------------------" 
-        b7_1Driver(bandsLength, bandsArray)
+        "-------------------- b10Driver -----------------------" 
+        b10Driver(bandsLength, bandsArray)
         initialCellTimeStampArray << timestampB71(bandsArray)
         clickit()
         alert_clickit()

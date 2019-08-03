@@ -2,7 +2,7 @@
 "                                  Function Entering Bands for First B7                                  "
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
-def b7_1Driver(bandsLength, bandsArray)
+def b10_Driver(bandsLength, bandsArray, bandNumbsArray)
   
     bandNameCounter = 0
 
@@ -36,15 +36,21 @@ def b7_1Driver(bandsLength, bandsArray)
         end
         element if element.displayed?
     }
-    until bandNameCounter == bandsLength
-        $_form.send_keys("#{bandsArray[bandNameCounter]}\n")
-        bandNameCounter += 1
-    end
+
+    # bandsArray.map{|row| row.map{random_letter}}
+    $_form.send_keys("#{bandNumbsArray}\n")
+
+    # until bandNameCounter == bandsLength
+    #     $_form.send_keys("#{bandsArray[bandNameCounter]}\n")
+    #     bandNameCounter += 1
+    # end
     sleep(2)
 
     puts "Good"
+
+    sleep(30)
 end
-  
+
 def clickit()
     $_form = $_wait.until {
         element = $_browser.find_element(:id, "execute")

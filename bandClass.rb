@@ -21,7 +21,7 @@ class Band
                 break
             end
             puts "\n"
-            puts "Is '#{band_num}' the correct BAND number for #{@eventName}?\nPress 'y' for 'Yes' or 'n' for 'No' and press 'Enter'."
+            puts "Is '#{band_num}' the correct BAND number?\nPress 'y' for 'Yes' or 'n' for 'No' and press 'Enter'.\n\nOr to skip and proceed, enter 'go' and press 'Enter'."
             band_num_check = gets.strip
             if band_num_check == "exit"
                 return

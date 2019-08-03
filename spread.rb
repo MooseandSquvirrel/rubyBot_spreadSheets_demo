@@ -33,6 +33,7 @@ require './productionDownloadFile'
 require './timeStamps.rb'
 require './allDrivers.rb'
 require './grabXlsxB10.rb'
+require './b10Driver.rb'
 require './b10Parse.rb'
 require './a2_Driver.rb'
 require './grabXlsxA2.rb'
@@ -43,6 +44,7 @@ require './send_sms.rb'
 require './headlessNavigate.rb'
 require './browserDownload.rb'
 require './parseObject.rb'
+require './csvObjArray.rb'
 ####################################
 
 # FUNCTION TO CHECK IF USER LOGGED INTO VPN AND BACKENDSYSTEM
@@ -67,8 +69,8 @@ def bannerOutPut(file)
 end
 
 # FUNCTION RETURNS ARRAY OF EVENT NAMES FROM EACH EVENT
-def getEventNamesArray(bandsArray)
-    eventNamesArray = bandsArray.collect {|x| x.bandNum}         #" I NEED TO FIGURE OUT HOW TO COLLECT ALL THE BAND NUMBERS INTO AN ARRAY FROM THEIR OBJECTS"
+def getBandNumsArray(bandsArray)
+    bandNumbsArray = bandsArray.collect {|x| x}         #" I NEED TO FIGURE OUT HOW TO COLLECT ALL THE BAND NUMBERS INTO AN ARRAY FROM THEIR OBJECTS"
 end
 
 # FUNCTION RETURNS NEW BANDS FROM EVENTS COLLECTS FROM B3 PARSE FOR B7_2 DOWNLOADING CHECK (IF CELL CONTAINS ANY BANDNUMS FROM THIS ARRAY)
@@ -90,11 +92,32 @@ def addToCsv(bandsArrayToCsv)
     len = bandsArrayToCsv.length
     CSV.open("bandNums.csv", "a+") do |csv|
         while i < len
-            csv << ["#{bandsArrayToCsv[i].bandNum}"]
-            puts "bandsArrayToCsv[i].bandNum: #{bandsArrayToCsv[i].bandNum}"
-            i += 1
+            if bandsArrayToCsv[i].bandNum == ""
+                i += 1
+            else 
+                csv << ["#{bandsArrayToCsv[i].bandNum}"]
+                puts "bandsArrayToCsv[i].bandNum: #{bandsArrayToCsv[i].bandNum}"
+                i += 1
+            end
         end
     end
+end
+
+def grabCSV() 
+    csvArray = CSVArray.new
+    CSV.foreach("bandNums.csv") do |row|
+        puts row
+        if row.nil? || row == ""
+            next
+        else
+            csvArray.array << row
+            puts "csvArray.array"
+            puts csvArray.array
+        end
+    end
+    puts "All BAND Numbers:"
+    ap csvArray.array
+    csvArray
 end
 
 # SUPERFLOUS INTEGRAL LOADING MESSAGE
@@ -114,6 +137,16 @@ end
 # ALL FUNCTIONS FOR B7_1 B3 A2
 def go_b10_a2(bandsArray)
 
+    puts "Working with this bandsArray:"
+    ap bandsArray
+    # bandsArray IS TOTAL BAND NUMBERS FROM CSV AFTER POTENTAIL APPENDING FROM USER, OR WITHOUT APPEND, 
+    bandNumbsArray = bandsArray.flatten
+    puts "flattened"
+    ap bandNumbsArray
+    puts "joined"
+    bandNumbsArray = bandNumbsArray.join(", ")
+    ap bandNumbsArray
+
     # COUNTER FOR LENGTH OF BANDS ARRAY FOR USE IN FUNCTIONS BELOW
     bandsLength = bandsArray.length   
     loadingMessage()
@@ -125,7 +158,7 @@ def go_b10_a2(bandsArray)
     # ARRAY FOR TIME STAMPS FOR TABLE TO IDENTIFY BY MINUTE AND HOUR WHICH EXCEL SHEETS TO DOWNLOAD WHEN READY
     initialCellTimeStampArray = []
 
-    b10_a2_Driver(bandsLength, bandsArray, initialCellTimeStampArray)
+    b10_Driver(bandsLength, bandsArray, bandNumbsArray)
     storeTable($_browser)
     checkTableDownload(bandsArray, initialCellTimeStampArray)
     browserDownloadFiles($_files_href)
@@ -142,29 +175,6 @@ def go_b10_a2(bandsArray)
     $_files_href = []
 end
 
-# ALL FUNCTION FOR B7_2
-def go_B72(events, bandsArray)
-    b7_2Driver(bandsArray)
-    # $_keys IS GLOBAL VARIABLE THAT DECIDES WHETHER ANY GBL WAS ENTERED INTO TEXT AREA (WHETHER TO RUN DATA)
-    if $_keys == true
-        clickit()
-        band = bandsArray[0]
-        b7_2CellTimeStamp1 = timestampB72(bandsArray)
-        b7_2CellTimeStamp2 = $_hoursMinutesB72_backUp
-        b7_2CellTimeStamp3 = $_hoursMinutesB72_backUp2
-        alert_clickit()
-        b7_2bandNumsArray = getB72bandNums(bandsArray)
-        b72StoreTable($_browser)
-        b72CheckTableDownload(bandsArray, b7_2CellTimeStamp1, b7_2CellTimeStamp2, b7_2CellTimeStamp3, b7_2bandNumsArray)
-        browserDownloadFiles($_files_href)
-        grabXlsxB72()
-        b7_2Parse(events, bandsArray)
-        removeTEMPB7_2()
-    else
-        $_browser.quit
-    end
-end
-
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 "                                               RUN                                                      "
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
@@ -174,9 +184,9 @@ def RUN
     # bannerOutPut("banner_Welcome.txt") #### SUDDENLY STOPPED WORKING WITHOUT CODE CHANGING
     #### didYouLogin()
     #### helloMessage()
-    #### usrNumber = textMessage()
-    #### userName()
-    #### pwd()    
+    usrNumber = textMessage()
+    userName()
+    pwd()    
     eventTitleCounter = 0
     bandCounter = 0
     puts "Would you like to add a Band Number to the program to track Data on?\n\nEnter 'y' for YES or 'n' for NO."
@@ -200,21 +210,16 @@ def RUN
         puts "Running data on current band numbers in program..."
     end
 
+    csvArray = []
+    csvArray = grabCSV()
 
-    "bandsArray from here and below should be collected from CSV"
-
-    return 
-
-    go_b10_a2(bandsArray)
-    removeTEMPB7()
-    removeTEMPB3()
+    go_b10_a2(csvArray.array)
+    removeTEMPB10()
     removeTEMPA2()
     events = bandsArray.length
     writer2(bandsArray, lenOuterArray)
     # PRINTING OUT FINAL RESULTS BEFORE WRITING
     finalResults(bandsArray)
-    i += 1
-    page += 1
     system('say "Analysis, completed. Moving to next, date, group"')
 
     system('say "Program, Finished."')

@@ -94,7 +94,7 @@ def pwd()
     pwd_check = ""
     while pwd_check != 'y' || pwd_check != "exit"
         print "Enter backend password -- TEXT WILL BE INVISIBLE, AFTER TYPING PASSWORD HIT ENTER TWICE:\n"
-        pwd = gets.strip
+        pwd = STDIN.noecho(&:gets).chomp
         if pwd == 'exit'
             return
         end

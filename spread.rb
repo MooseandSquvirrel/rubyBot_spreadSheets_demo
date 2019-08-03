@@ -190,14 +190,14 @@ def RUN
                 bandsArrayToCsv << event
             end
         end
+        puts "bandsArrayToCsv:"
+        ap bandsArrayToCsv
+        addToCsv(bandsArrayToCsv)
     else
         puts "Running data on current band numbers in program..."
     end
 
-    puts "bandsArrayToCsv:"
-    ap bandsArrayToCsv
 
-    addToCsv(bandsArrayToCsv)
 
 
 

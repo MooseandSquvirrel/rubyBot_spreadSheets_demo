@@ -6,7 +6,7 @@ def b10_a2_Driver(bandsLength, bandsArray, bandNumbsArray)
         alert_clickit()
 
         "==================== a2 ========================="         
-        a2_Driver(bandsLength, bandsArray)
+        a2_Driver(bandsLength, bandsArray, bandNumbsArray)
         #initialCellTimeStampArray << timestampA2(bandsArray)
         clickit()
         # alert_clickit() TWICE TO COVER BOTH ALERT POP-UPS

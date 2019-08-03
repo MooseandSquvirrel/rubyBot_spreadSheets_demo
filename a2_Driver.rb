@@ -2,7 +2,7 @@
 "                                  Function Entering Bands & Date for A2                                 "
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
-def a2_Driver(bandsLength, bandsArray)
+def a2_Driver(bandsLength, bandsArray, bandNumbsArray)
 
     bandNameCounter = 0
     
@@ -34,12 +34,13 @@ def a2_Driver(bandsLength, bandsArray)
         end
         element if element.displayed?
     }
-
-    # ENTER BAND NUMBS INTO TEXT FIELD
-    until bandNameCounter == bandsLength
-        $_form.send_keys("#{bandsNamesArray[bandNameCounter]}\n")
-        bandNameCounter += 1
-    end
+    $_form.send_keys("#{bandNumbsArray}\n")
+    
+    # # ENTER BAND NUMBS INTO TEXT FIELD
+    # until bandNameCounter == bandsLength
+    #     $_form.send_keys("#{bandsNamesArray[bandNameCounter]}\n")
+    #     bandNameCounter += 1
+    # end
     sleep(2)
 
     puts "Band numbers entered into A2 Text Field..."

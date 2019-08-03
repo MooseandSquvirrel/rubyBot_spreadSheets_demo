@@ -156,12 +156,9 @@ def go_b10_a2(bandsArray)
     navigate($_userNameVar)                                                           
     sleep (7) 
 
-    # ARRAY FOR TIME STAMPS FOR TABLE TO IDENTIFY BY MINUTE AND HOUR WHICH EXCEL SHEETS TO DOWNLOAD WHEN READY
-    initialCellTimeStampArray = []
-
     b10_a2_Driver(bandsLength, bandsArray, bandNumbsArray)
     storeTable($_browser)
-    checkTableDownload(bandsArray, initialCellTimeStampArray)
+    checkTableDownload(bandsArray)
     browserDownloadFiles($_files_href)
     grabXlsxB10()
     b10Parse(eventNamesArray, bandsArray)

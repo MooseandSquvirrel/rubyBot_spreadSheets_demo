@@ -36,18 +36,9 @@ def b10_Driver(bandsLength, bandsArray, bandNumbsArray)
         end
         element if element.displayed?
     }
-
-    # bandsArray.map{|row| row.map{random_letter}}
     $_form.send_keys("#{bandNumbsArray}\n")
-
-    # until bandNameCounter == bandsLength
-    #     $_form.send_keys("#{bandsArray[bandNameCounter]}\n")
-    #     bandNameCounter += 1
-    # end
     sleep(2)
-
     puts "Good"
-
 end
 
 def clickit()

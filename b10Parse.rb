@@ -116,5 +116,6 @@ def b10Parse(bandsArray)
         resultsB10(band, worksheet)
         i += 1
     end
+    return b10ResultsBandsArray
 end
 

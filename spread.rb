@@ -10,6 +10,10 @@ require 'awesome_print'
 require 'date'
 require 'capybara'
 require 'csv'
+require "google/apis/sheets_v4"
+require "googleauth"
+require "googleauth/stores/file_token_store"
+require "fileutils"
 ####################################
 # TEST_CREEP REQUIRES
 ####################################
@@ -45,6 +49,7 @@ require './headlessNavigate.rb'
 require './browserDownload.rb'
 require './parseObject.rb'
 require './csvObjArray.rb'
+require './try.rb'
 ####################################
 
 # FUNCTION TO CHECK IF USER LOGGED INTO VPN AND BACKENDSYSTEM
@@ -150,20 +155,26 @@ def go_b10_a2(bandsArray)
 
     # COUNTER FOR LENGTH OF BANDS ARRAY FOR USE IN FUNCTIONS BELOW
     bandsLength = bandsArray.length   
-    loadingMessage()
+    #### loadingMessage()
 
     # DRIVERLOGIN.RB FUNCTION TO LOG INTO BACKEND AND FIND PROPER PAGE/IFRAME
-    navigate($_userNameVar)                                                           
+    #### navigate($_userNameVar)                                                           
     sleep (7) 
 
-    b10_a2_Driver(bandsLength, bandsArray)
-    storeTable($_browser)
-    checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
-    browserDownloadFiles($_files_href)
-    grabXlsxB10()
-    b10Parse(bandsArray)
+    #### b10_a2_Driver(bandsLength, bandsArray)
+    #### storeTable($_browser)
+    #### checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
+    #### browserDownloadFiles($_files_href)
+    #### grabXlsxB10()
+    bandObjArray = []
+    bandObjArray = b10Parse(bandsArray)
+
+    bandCount = bandObjArray.length
+    writeToSheets(bandsCount, bandObjArray)
     puts "\nB10 Parsed\n"
  
+    return  ####################################################       ######################
+
     grabXlsxA2()
     a2Parse(bandsArray)
     puts "\n\nA2 Parsed\n\n"

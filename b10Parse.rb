@@ -107,15 +107,20 @@ def b10Parse(bandsArray)
 
     #### API Googlespreadsheets function to add b10Resultsarray with while loop to sheets
 
-    puts "sleeping for 15 seconds"
-    sleep(15)
-    len = bandsArray.length
+    puts "sleeping for 2 seconds"
+    sleep(2)
+    len = b10ResultsBandsArray.length
     i = 0
-    until i == len
+    count = 0
+    until i == len - 1
         band = b10ResultsBandsArray[i]
         resultsB10(band, worksheet)
+        count += 1
+        puts "count: #{count}"
         i += 1
+        puts "len #{len}"
     end
+    
     return b10ResultsBandsArray
 end
 

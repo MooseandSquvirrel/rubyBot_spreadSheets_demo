@@ -11,9 +11,11 @@ require 'date'
 require 'capybara'
 require 'csv'
 require "google/apis/sheets_v4"
-require "googleauth"
+require "googleauth" 
 require "googleauth/stores/file_token_store"
 require "fileutils"
+require "google_drive"
+require 'open-uri'
 ####################################
 # TEST_CREEP REQUIRES
 ####################################
@@ -140,6 +142,16 @@ def loadingMessage()
     puts '.'
 end
 
+def mvDirRoot()
+    puts "----- Moving Directories to reach ROOT Directory -----"
+    puts "Directory before:"
+    puts Dir.pwd
+    rootDir = '../'
+    Dir.chdir(File.expand_path(rootDir))
+    puts "Directory is now:"
+    puts Dir.pwd
+end
+
 # ALL FUNCTIONS FOR B7_1 B3 A2
 def go_b10_a2(bandsArray)
 
@@ -169,8 +181,10 @@ def go_b10_a2(bandsArray)
     bandObjArray = []
     bandObjArray = b10Parse(bandsArray)
 
-    bandCount = bandObjArray.length
+    bandsCount = bandObjArray.length
+    mvDirRoot()
     writeToSheets(bandsCount, bandObjArray)
+
     puts "\nB10 Parsed\n"
  
     return  ####################################################       ######################

@@ -170,14 +170,14 @@ def go_b10_a2(bandsArray)
     #### loadingMessage()
 
     # DRIVERLOGIN.RB FUNCTION TO LOG INTO BACKEND AND FIND PROPER PAGE/IFRAME
-    #### navigate($_userNameVar)                                                           
+    navigate($_userNameVar)                                                           
     sleep (7) 
 
-    #### b10_a2_Driver(bandsLength, bandsArray)
-    #### storeTable($_browser)
-    #### checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
-    #### browserDownloadFiles($_files_href)
-    #### grabXlsxB10()
+    b10_a2_Driver(bandsLength, bandsArray)
+    storeTable($_browser)
+    checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
+    browserDownloadFiles($_files_href)
+    grabXlsxB10()
     bandObjArray = []
     bandObjArray = b10Parse(bandsArray)
 
@@ -188,14 +188,12 @@ def go_b10_a2(bandsArray)
     puts "\nB10 Parsed\n"
  
     return  ####################################################       ######################
-
+=begin
     grabXlsxA2()
     a2Parse(bandsArray)
     puts "\n\nA2 Parsed\n\n"
-    band.bandsArray = bandsArray
-    band.eventNamesArray = eventNamesArray
-    # RESET GLOBAL ARRAY TO EMTPY FOR B7_2
-    $_files_href = []
+=end
+
 end
 
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
@@ -238,11 +236,11 @@ def RUN
 
     go_b10_a2(csvArray.array)
     removeTEMPB10()
-    removeTEMPA2()
-    events = bandsArray.length
-    writer2(bandsArray, lenOuterArray)
+    # removeTEMPA2()
+    # events = bandsArray.length
+    # writer2(bandsArray, lenOuterArray)
     # PRINTING OUT FINAL RESULTS BEFORE WRITING
-    finalResults(bandsArray)
+    # finalResults(bandsArray)
     system('say "Analysis, completed. Moving to next, date, group"')
 
     system('say "Program, Finished."')

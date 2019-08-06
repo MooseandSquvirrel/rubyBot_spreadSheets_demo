@@ -49,6 +49,6 @@ def removeTEMPB10()
     puts "Directory is now:"
     puts Dir.pwd
     puts "Deleting TEMP_B10 Directory..."
-    thisDir = "~/fixit/TEMP_B10"
+    thisDir = "~/spreadEm/spreadSheets/TEMP_B10"
     FileUtils.remove_dir(File.expand_path(thisDir))
 end

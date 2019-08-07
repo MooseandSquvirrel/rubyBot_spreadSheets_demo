@@ -168,7 +168,7 @@ def go_b10_a2(bandsArray)
     # COUNTER FOR LENGTH OF BANDS ARRAY FOR USE IN FUNCTIONS BELOW
     bandsLength = bandsArray.length   
     #### loadingMessage()
-
+=begin
     # DRIVERLOGIN.RB FUNCTION TO LOG INTO BACKEND AND FIND PROPER PAGE/IFRAME
     navigate($_userNameVar)                                                           
     sleep (7) 
@@ -178,6 +178,7 @@ def go_b10_a2(bandsArray)
     checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
     browserDownloadFiles($_files_href)
     grabXlsxB10()
+=end
     bandObjArray = []
     bandObjArray = b10Parse(bandsArray)
 
@@ -235,17 +236,15 @@ def RUN
     csvArray = grabCSV()
 
     go_b10_a2(csvArray.array)
-    removeTEMPB10()
+    # removeTEMPB10()
     # removeTEMPA2()
     # events = bandsArray.length
     # writer2(bandsArray, lenOuterArray)
     # PRINTING OUT FINAL RESULTS BEFORE WRITING
     # finalResults(bandsArray)
-    system('say "Analysis, completed. Moving to next, date, group"')
 
-    system('say "Program, Finished."')
     twilio(usrNumber)
 end
 
-RUN()
+return RUN()
 puts "Successful run completed."

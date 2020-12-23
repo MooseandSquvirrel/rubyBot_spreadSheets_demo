@@ -1,6 +1,5 @@
 
 class Band
-        
     @@stringsHash = {:band_nums => "Enter a new Band number to evaluate for B10/A2, then hit 'enter':"}
 
     # COUNTER TO IGNORE THE 'puts stringsHash[:band_num]' THE SECOND TIME THROUGH IF 'n' IS SELECTED BY USER
@@ -20,8 +19,7 @@ class Band
             if band_num == "go"
                 break
             end
-            puts "\n"
-            puts "Is '#{band_num}' the correct BAND number?\nPress 'y' for 'Yes' or 'n' for 'No' and press 'Enter'.\n\nOr to skip and proceed, enter 'go' and press 'Enter'."
+            puts "\nIs '#{band_num}' the correct BAND number?\nPress 'y' for 'Yes' or 'n' for 'No' and press 'Enter'.\n\nOr to skip and proceed, enter 'go' and press 'Enter'."
             band_num_check = gets.strip
             if band_num_check == "exit"
                 return
@@ -31,16 +29,14 @@ class Band
                 break
             end
             if band_num_check == 'n'
-                puts "\n"
-                puts "-------------------------------------------------------"
+                puts "\n-------------------------------------------------------"
                 puts "Re-Enter the correct BAND number for '#{@eventName}' and press 'Enter':"
                 redo
             end
             if band_num_check != 'y' || band_num_check != 'n'
                 puts "Please press 'y' for 'Yes' or 'n' for 'No' and hit the 'Enter' Key."
                 puts "If you'd like to exit the program, type 'exit' and hit the 'Enter' Key."
-                puts "\n"
-                puts "**** Now Re-Enter the BAND number for #{@eventName} 'Enter'. ****"
+                puts "\n**** Now Re-Enter the BAND number for #{@eventName} 'Enter'. ****"
                 redo
             end
         end

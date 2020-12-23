@@ -77,18 +77,17 @@ end
 
 # FUNCTION RETURNS ARRAY OF EVENT NAMES FROM EACH EVENT
 def getBandNumsArray(bandsArray)
-    bandsArray = bandsArray.collect {|x| x}         #" I NEED TO FIGURE OUT HOW TO COLLECT ALL THE BAND NUMBERS INTO AN ARRAY FROM THEIR OBJECTS"
+    bandsArray = bandsArray.collect {|x| x}
 end
 
 # FUNCTION RETURNS NEW BANDS FROM EVENTS COLLECTS FROM B3 PARSE FOR B7_2 DOWNLOADING CHECK (IF CELL CONTAINS ANY BANDNUMS FROM THIS ARRAY)
 def getB72bandNums(bandsArray)
-    b7_2bandNumsArray = bandsArray.collect {|x| x.newBandNumbsb7_2}         #" I NEED TO FIGURE OUT HOW TO COLLECT ALL THE BAND NUMBERS INTO AN ARRAY FROM THEIR OBJECTS"
+    b7_2bandNumsArray = bandsArray.collect {|x| x.newBandNumbsb7_2}
 end
 
 # FUNCTION TO MOVE TO NEXT ARRAY OF EVENTS WTIH SAME DATE OR BEGIN NAVIGATION/DRIVER/ANALYSIS
 def outerLoopOrGo()
-    puts "\n"
-    puts "----------------------------------------------------------------------------------"
+    puts "\n----------------------------------------------------------------------------------"
     puts "If no more BANDs with -- different start dates -- to enter info for, type 'go' and hit 'Enter'."
     puts "Otherwise, hit 'Enter' to begin submitting a Summer Camp group with different dates."
     gets.strip != "go"
@@ -118,8 +117,6 @@ def grabCSV()
             next
         else
             csvArray.array << row
-            # puts "csvArray.array"
-            # puts csvArray.array
         end
     end
     puts "All BAND Numbers:"
@@ -130,8 +127,7 @@ end
 
 # SUPERFLOUS INTEGRAL LOADING MESSAGE
 def loadingMessage()
-    puts "\n"
-    print "Thank you #{$_userNameVar}. Now I will do work for you :)"
+    print "\nThank you #{$_userNameVar}. Now I will do work for you :)"
     sleep(1)
     print '.'
     sleep(1)
@@ -159,15 +155,12 @@ def go_b10_a2(bandsArray)
     ap bandsArray
     # bandsArray IS TOTAL BAND NUMBERS FROM CSV AFTER POTENTAIL APPENDING FROM USER, OR WITHOUT APPEND, 
     bandsArray = bandsArray.flatten
-    puts "flattened"
     ap bandsArray
-    puts "joined"
     bandsArray = bandsArray.join(", ")
     ap bandsArray
 
     # COUNTER FOR LENGTH OF BANDS ARRAY FOR USE IN FUNCTIONS BELOW
     bandsLength = bandsArray.length   
-    #### loadingMessage()
 
     # DRIVERLOGIN.RB FUNCTION TO LOG INTO BACKEND AND FIND PROPER PAGE/IFRAME
     navigate($_userNameVar)                                                           
@@ -175,7 +168,7 @@ def go_b10_a2(bandsArray)
 
     b10_a2_Driver(bandsLength, bandsArray)
     storeTable($_browser)
-    checkTableDownload(bandsArray) ######### Trying bandsArray instead of bandsArray (might need to switch back to bandsArray)
+    checkTableDownload(bandsArray)
     browserDownloadFiles($_files_href)
     grabXlsxB10()
 
@@ -185,16 +178,11 @@ def go_b10_a2(bandsArray)
     bandsCount = bandObjArray.length
     mvDirRoot()
     writeToSheets(bandsCount, bandObjArray)
-
     puts "\nB10 Parsed\n"
- 
-    return  ####################################################       ######################
-=begin
+
     grabXlsxA2()
     a2Parse(bandsArray)
     puts "\n\nA2 Parsed\n\n"
-=end
-
 end
 
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
@@ -202,10 +190,10 @@ end
 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 def RUN
-    #### fileMoveOldXlsx()
-    # bannerOutPut("banner_Welcome.txt") #### SUDDENLY STOPPED WORKING WITHOUT CODE CHANGING
-    #### didYouLogin()
-    #### helloMessage()
+    fileMoveOldXlsx()
+    bannerOutPut("banner_Welcome.txt") #### SUDDENLY STOPPED WORKING WITHOUT CODE CHANGING
+    didYouLogin()
+    helloMessage()
     usrNumber = textMessage()
     userName()
     pwd()    
@@ -236,12 +224,13 @@ def RUN
     csvArray = grabCSV()
 
     go_b10_a2(csvArray.array)
-    # removeTEMPB10()
-    # removeTEMPA2()
-    # events = bandsArray.length
-    # writer2(bandsArray, lenOuterArray)
+    removeTEMPB10()
+    removeTEMPA2()
+    events = bandsArray.length
+    writer2(bandsArray, lenOuterArray)
+    
     # PRINTING OUT FINAL RESULTS BEFORE WRITING
-    # finalResults(bandsArray)
+    finalResults(bandsArray)
 
     twilio(usrNumber)
 end

@@ -40,7 +40,6 @@ def mvFinalRes()
     }
 end
 
-# def writer2(bandsArray, page, lenOuterArray)
 def writer2(bandsArray, lenOuterArray)
     finalResultsDir()
     # EQUALS LENGTH OF ARRAY

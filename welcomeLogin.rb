@@ -1,6 +1,5 @@
 def helloMessage()
-    puts "\n\n\n\n\n\n\n"
-    puts "-- .xlsx files from your ~/Downloads Folder have been moved to \nOLD_XLSX_DATA Folder on your Desktop. --"
+    puts "\n\n\n\n\n\n\n-- .xlsx files from your ~/Downloads Folder have been moved to \nOLD_XLSX_DATA Folder on your Desktop. --"
     print "\n\nThis program will continue until 'exit' is entered on the command line.\nIf exited, 'Up Arrow' then 'Enter' will restart.\n\n"
     print "\n**** AGAIN, MAKE SURE BEFORE YOU BEGIN TO CONNECT TO --VPN PULSE SECURE-- ****\n\n"
 end
@@ -26,8 +25,7 @@ def textMessage()
             puts "-------------------------------------------------------------------"
             puts "Please press 'y' for 'Yes' or 'n' for 'No' and hit the 'Enter' Key."
             puts "If you'd like to exit the program, type 'exit' and hit the 'Enter' Key."
-            puts "-------------------------------------------------------------------"
-            puts "\n"
+            puts "-------------------------------------------------------------------\n"
             redo
         end
         puts "\n"
@@ -38,16 +36,14 @@ def textMessage()
         elsif answer_check == 'y' 
             return usrNumber
         elsif answer_check == 'n'
-            puts "\n"
-            puts "-------------------------------------------------------"
+            puts "\n-------------------------------------------------------"
             puts "Re-Enter the correct cell number and press 'Enter':"
             redo
         else
             puts "-------------------------------------------------------------------"
             puts "Please press 'y' for 'Yes' or 'n' for 'No' and hit the 'Enter' Key."
             puts "If you'd like to exit the program, type 'exit' and hit the 'Enter' Key."
-            puts "-------------------------------------------------------------------"
-            puts "\n"
+            puts "-------------------------------------------------------------------\n"
             redo
         end
     end
@@ -81,8 +77,7 @@ def userName()
         end
         if userName_check != 'y' || userName_check != 'n'
             puts "Please press 'y' for 'Yes' or 'n' for 'No' and hit the 'Enter' Key."
-            puts "If you'd like to exit the program, type 'exit' and hit the 'Enter' Key."
-            puts "\n"
+            puts "If you'd like to exit the program, type 'exit' and hit the 'Enter' Key.\n"
             puts "**** Now Re-Enter the correct user name and hit 'Enter'. ****"
             redo
         end
@@ -94,13 +89,12 @@ def pwd()
     pwd_check = ""
     while pwd_check != 'y' || pwd_check != "exit"
         print "Enter backend password -- TEXT WILL BE INVISIBLE, AFTER TYPING PASSWORD HIT ENTER TWICE:\n"
-        #### pwd = STDIN.noecho(&:gets).chomp
+        pwd = STDIN.noecho(&:gets).chomp
         pwd = gets.strip
         if pwd == 'exit'
             return
         end
-        puts "\n"
-        puts "Did you enter the correct password? (Even though it is invisible :) ....)\nPress 'y' for 'Yes' or 'n' for 'No' and press 'Enter'."
+        puts "\nDid you enter the correct password? (Even though it is invisible :) ....)\nPress 'y' for 'Yes' or 'n' for 'No' and press 'Enter'."
         pwd_check = gets.strip
         if pwd_check == "exit"
             return
@@ -110,16 +104,14 @@ def pwd()
             break
         end
         if pwd_check == 'n'
-            puts "\n"
-            puts "-------------------------------------------------------"
+            puts "\n-------------------------------------------------------"
             puts "Re-Enter the correct password and press 'Enter':"
             redo
         end
         if pwd_check != 'y' || pwd_check != 'n'
             puts "Please press 'y' for 'Yes' or 'n' for 'No' and hit the 'Enter' Key."
             puts "If you'd like to exit the program, type 'exit' and hit the 'Enter' Key."
-            puts "\n"
-            puts "**** Now Re-Enter the correct password and hit 'Enter'. ****"
+            puts "\n**** Now Re-Enter the correct password and hit 'Enter'. ****"
             redo
         end
     end
